@@ -1,8 +1,6 @@
 import itertools
-import json
 import sys
 from dataclasses import dataclass, field
-from enum import StrEnum, auto
 from pathlib import Path
 
 import pandas as pd
@@ -27,12 +25,6 @@ class DiamondTimeUnsolveableError(DiamondTimeError):
 
 class DiamondTimeConstraintError(DiamondTimeError):
     """Custom exception for DiamondTime constraint errors."""
-
-
-class OutputType(StrEnum):
-    readable: str = auto()
-    json: str = auto()
-    csv: str = auto()
 
 
 class Season(BaseModel):
@@ -113,13 +105,11 @@ class DiamondTimeScheduler:
         self,
         season: Season,
         series_length: int = 2,
-        output_format: OutputType = OutputType.readable,
     ):
         # Store name mappings
         self.season = season
 
         self.series_len = series_length
-        self.output_format = output_format
 
         # Short name
         sn = self.season
@@ -518,7 +508,7 @@ def main(
     config: Path,
     series_length: int = 2,
     constraints: Path | None = None,
-    output: OutputType = "readable",
+    out: Path | None = None,
 ):
     print("⚾⚾⚾  DiamondTime Season Scheduler  ⚾⚾⚾")
     print()
@@ -540,9 +530,7 @@ def main(
     # Create scheduler with either explicit counts or inferred from config
     try:
         scheduler = DiamondTimeScheduler(
-            season=season,
-            series_length=series_length,
-            output_format=output,
+            season=season, series_length=series_length
         )
     except DiamondTimeUnsolveableError as e:
         print(f"ERROR: could not create scheduler: {e}", file=sys.stderr)
@@ -573,15 +561,25 @@ def main(
         print(f"Could not solve the problem: {e}", file=sys.stderr)
         sys.exit(1)
 
-    if output == "json":
-        print(json.dumps(result.to_dict(orient="records"), indent=2))
-    elif output == "csv":
-        print(result.to_csv(index=False))
-    else:
-        print("=" * WINDOWSIZE)
-        print(f"\n{'🏟️ Season Schedule': ^{WINDOWSIZE}}\n")
-        rich.print(result)
-        print("\n\n")
+    # Print schedule to stdout
+    print("=" * WINDOWSIZE)
+    print(f"\n{'🏟️ Season Schedule': ^{WINDOWSIZE}}\n")
+    rich.print(result)
+    print("\n\n")
+
+    # Save schedule to file if specified
+    if out:
+        print(f"Saving schedule to {out}")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        ext = out.suffix.lower() if out else None
+        match ext:
+            case ".json":
+                result.to_json(out, orient="records")
+            case ".csv":
+                result.to_csv(out, index=False)
+            case _:
+                print(f"ERROR: invalid output format: {ext}", file=sys.stderr)
+                sys.exit(1)
 
 
 if __name__ == "__main__":

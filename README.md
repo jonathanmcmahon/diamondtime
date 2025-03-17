@@ -8,7 +8,7 @@ DiamondTime is a season scheduler for baseball leagues. It uses [constraint prog
 - Specify hard constraints for team and field unavailability
 - Specify soft constraints for team and field preferences
 - Generate balanced schedules with equal home and away games
-- Output schedules in readable, JSON, or CSV formats
+- Output schedules to stdout, JSON, or CSV files
 
 ## Quick start
 
@@ -44,7 +44,7 @@ To generate a schedule:
 2. Call the `diamondtime.py` script:
 
 ```sh
-python3 diamondtime.py config.yaml --constraints constraints.yaml
+python3 diamondtime.py config.yaml --constraints constraints.yaml --out schedule.csv
 ```
 
 ## License 
