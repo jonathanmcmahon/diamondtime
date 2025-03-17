@@ -1,0 +1,42 @@
+[project]
+name = "diamondtime"
+version = "0.0.1"
+authors = [
+    {name = "Jonathan McMahon", email = "jonathanmcmahon@users.noreply.github.com"},
+]
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "ortools==9.10.4067",
+    "pandas>=2.2.2",
+    "pydantic>=2.10.6",
+    "typer==0.15.2",
+    "PyYAML>=6.0.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.0",
+    "mypy>=1.15.0",
+]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+ignore = ["E203", "E501"]

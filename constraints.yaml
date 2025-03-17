@@ -1,0 +1,31 @@
+team_unavailable:
+  - team: Aaron
+    week: Apr 6
+    slot: Wed 6:00pm-8:00pm
+    comment: Aaron unavailable on this afternoon
+  - team: DiMaggio
+    week: Apr 13
+    comment: DiMaggio completely unavailable on April 13
+
+field_unavailable:
+  - field: Little League Upper
+    week: Apr 20
+    slot: Wed 6:00pm-8:00pm
+    comment: Upper field unavailable for maintenance
+
+team_prefers_not:
+  - team: Cobb
+    week: Apr 27
+    weight: 8
+    comment: Cobb strongly prefer not to play on March 23
+  - team: Eckersley
+    week: May 4
+    slot: Thu 6:00pm-8:00pm
+    weight: 3
+    comment: Team slightly prefer not to play Thu games
+
+field_preference:
+  - team: Feller
+    field: Little League Upper
+    weight: 15
+    comment: Feller strongly prefers playing at the Upper Field
