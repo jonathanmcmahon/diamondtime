@@ -26,7 +26,7 @@ cd diamondtime
 2. Install the required dependencies:
 
 ```sh
-pip install -r requirements.txt
+pip install -r .
 ```
 
 ## Usage
@@ -44,7 +44,7 @@ To generate a schedule:
 2. Call the `diamondtime.py` script:
 
 ```sh
-python diamondtime.py config.yaml --constraints constraints.yaml
+python3 diamondtime.py config.yaml --constraints constraints.yaml
 ```
 
 ## License 
