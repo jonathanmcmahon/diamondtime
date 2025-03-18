@@ -518,14 +518,14 @@ def main(
             "ERROR: series_length must be even (# of home & away games must be equal)",
             file=sys.stderr,
         )
-        sys.exit(1)
+        raise typer.Exit(code=1)
 
     # Load configuration from YAML
     try:
         season = load_config(config)
     except Exception as e:
         print(f"ERROR: could not load configuration: {e}", file=sys.stderr)
-        sys.exit(1)
+        raise typer.Exit(code=1) from e
 
     # Create scheduler with either explicit counts or inferred from config
     try:
@@ -534,7 +534,7 @@ def main(
         )
     except DiamondTimeUnsolveableError as e:
         print(f"ERROR: could not create scheduler: {e}", file=sys.stderr)
-        sys.exit(1)
+        raise typer.Exit(code=1) from e
 
     # Load constraints if provided
     if constraints:
@@ -546,20 +546,20 @@ def main(
                 f"ERROR: could not load constraints from file: {e}",
                 file=sys.stderr,
             )
-            sys.exit(1)
+            raise typer.Exit(code=1) from e
 
         try:
             scheduler.add_constraints(constraints)
         except DiamondTimeError as e:
             print(f"ERROR: could not process constraints: {e}", file=sys.stderr)
-            sys.exit(1)
+            raise typer.Exit(code=1) from e
 
     # Solve and print the schedule
     try:
         result = scheduler.solve()
     except DiamondTimeUnsolveableError as e:
         print(f"Could not solve the problem: {e}", file=sys.stderr)
-        sys.exit(1)
+        raise typer.Exit(code=1) from e
 
     # Print schedule to stdout
     print("=" * WINDOWSIZE)
@@ -579,7 +579,7 @@ def main(
                 result.to_csv(out, index=False)
             case _:
                 print(f"ERROR: invalid output format: {ext}", file=sys.stderr)
-                sys.exit(1)
+                raise typer.Exit(code=1)
 
 
 if __name__ == "__main__":
