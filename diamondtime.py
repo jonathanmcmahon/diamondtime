@@ -564,7 +564,7 @@ def main(
     # Print schedule to stdout
     print("=" * WINDOWSIZE)
     print(f"\n{'🏟️ Season Schedule': ^{WINDOWSIZE}}\n")
-    rich.print(result)
+    print(result)
     print("\n\n")
 
     # Save schedule to file if specified
