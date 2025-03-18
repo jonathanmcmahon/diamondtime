@@ -14,6 +14,8 @@ fields:
 
 # Week names (can be dates or descriptive names)
 weeks:
+  - Mar 23
+  - Mar 30
   - Apr 6
   - Apr 13
   - Apr 20

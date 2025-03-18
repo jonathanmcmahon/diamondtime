@@ -1,4 +1,3 @@
-import itertools
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -344,13 +343,12 @@ class DiamondTimeScheduler:
             for t in range(sn.n_teams):
                 model.Add(
                     sum(
-                        games.get((t1, t2, d, f, s), 0)
-                        for t1, t2 in itertools.combinations(
-                            range(sn.n_teams), 2
-                        )
-                        if t1 == t or t2 == t
+                        games.get((t, t2, d, f, s), 0)
+                        + games.get((t2, t, d, f, s), 0)
+                        for t2 in range(sn.n_teams)
                         for f in range(sn.n_fields)
                         for s in range(sn.n_slots)
+                        if t != t2
                     )
                     <= 1
                 )
