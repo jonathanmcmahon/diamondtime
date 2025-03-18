@@ -12,7 +12,7 @@ DiamondTime is a season scheduler for baseball leagues. It uses [constraint prog
 
 ## Quick start
 
-The quickest way to generate a schedule is to [get started with this Colab notebook](https://colab.research.google.com/drive/1v8wxk_awXUxfFsEKVpsJ7YX4lnbWPuh8).
+The quickest way to generate a schedule is to [get started with this Colab notebook](https://colab.research.google.com/github/jonathanmcmahon/diamondtime/blob/master/notebooks/Diamondtime_Schedule_Example.ipynb).
 
 ## Installation
 
@@ -33,7 +33,7 @@ pip install -r .
 
 ### Google Colab
 
-Launch the [notebook](https://colab.research.google.com/drive/1v8wxk_awXUxfFsEKVpsJ7YX4lnbWPuh8) on Colab.
+Launch the [notebook](https://colab.research.google.com/github/jonathanmcmahon/diamondtime/blob/master/notebooks/Diamondtime_Schedule_Example.ipynb) on Colab.
 
 ### Command Line Interface
 
